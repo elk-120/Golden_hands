@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Hands - Paniers Berbères Artisanaux</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Golden Hands</h1>
+        <div class="decorative-line"></div>
+        <p class="subtitle">Paniers Berbères Artisanaux</p>
+    </header>
+
+    <section class="intro">
+        <p>
+            Découvrez notre collection exclusive de paniers berbères authentiques, 
+            tissés à la main par des artisans marocains. Chaque modèle est unique 
+            et reflète la richesse de notre patrimoine culturel.
+        </p>
+    </section>
+
+    <section class="products-section">
+        <h2 class="section-title">Nos Modèles de Paniers</h2>
+        
+        <div class="products-grid">
+            
+            <!-- Panier Classique Naturel -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/classique-naturel.jpg" alt="Panier Classique Naturel" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #E8DCC4 0%, #D4C5A9 100%)';">
+                    <span class="size-badge">Classique</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Panier Classique Naturel</h3>
+                    <p class="product-description">
+                        Panier traditionnel en couleur naturelle, parfait pour tous les usages quotidiens.
+                    </p>
+                    <div class="price-range">
+                        À partir de <span class="price">100 DH</span>
+                    </div>
+                    <button class="order-btn" onclick="goToProduct('classique-naturel')">
+                        Voir les tailles
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panier Rayé Bleu -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/raye-bleu.jpg" alt="Panier Rayé Bleu" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #4A90E2 0%, #357ABD 100%)';">
+                    <span class="size-badge">Rayé</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Panier Rayé Bleu</h3>
+                    <p class="product-description">
+                        Magnifique panier avec motifs rayés bleus, idéal pour votre intérieur.
+                    </p>
+                    <div class="price-range">
+                        À partir de <span class="price">100 DH</span>
+                    </div>
+                    <button class="order-btn" onclick="goToProduct('raye-bleu')">
+                        Voir les tailles
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panier Rayé Rouge -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/raye-rouge.jpg" alt="Panier Rayé Rouge" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #E74C3C 0%, #C0392B 100%)';">
+                    <span class="size-badge">Rayé</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Panier Rayé Rouge</h3>
+                    <p class="product-description">
+                        Panier élégant avec rayures rouges traditionnelles marocaines.
+                    </p>
+                    <div class="price-range">
+                        À partir de <span class="price">100 DH</span>
+                    </div>
+                    <button class="order-btn" onclick="goToProduct('raye-rouge')">
+                        Voir les tailles
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panier Multicolore -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/multicolore.jpg" alt="Panier Multicolore" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 50%, #FFE66D 100%)';">
+                    <span class="size-badge">Premium</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Panier Multicolore</h3>
+                    <p class="product-description">
+                        Panier vibrant avec plusieurs couleurs, une véritable œuvre d'art.
+                    </p>
+                    <div class="price-range">
+                        À partir de <span class="price">100 DH</span>
+                    </div>
+                    <button class="order-btn" onclick="goToProduct('multicolore')">
+                        Voir les tailles
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panier Géométrique Noir -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/geometrique-noir.jpg" alt="Panier Géométrique Noir" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #2C3E50 0%, #34495E 100%)';">
+                    <span class="size-badge">Moderne</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Panier Géométrique Noir</h3>
+                    <p class="product-description">
+                        Design moderne avec motifs géométriques noirs et contemporains.
+                    </p>
+                    <div class="price-range">
+                        À partir de <span class="price">100 DH</span>
+                    </div>
+                    <button class="order-btn" onclick="goToProduct('geometrique-noir')">
+                        Voir les tailles
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panier Berbère Traditionnel -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/berbere-traditionnel.jpg" alt="Panier Berbère Traditionnel" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #C87941 0%, #8B5A2B 100%)';">
+                    <span class="size-badge">Traditionnel</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Panier Berbère Traditionnel</h3>
+                    <p class="product-description">
+                        Authentique panier berbère avec motifs ancestraux traditionnels.
+                    </p>
+                    <div class="price-range">
+                        À partir de <span class="price">100 DH</span>
+                    </div>
+                    <button class="order-btn" onclick="goToProduct('berbere-traditionnel')">
+                        Voir les tailles
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panier Rayé Vert -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/raye-vert.jpg" alt="Panier Rayé Vert" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #27AE60 0%, #229954 100%)';">
+                    <span class="size-badge">Rayé</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Panier Rayé Vert</h3>
+                    <p class="product-description">
+                        Panier éclatant avec rayures vertes, fraîcheur garantie.
+                    </p>
+                    <div class="price-range">
+                        À partir de <span class="price">100 DH</span>
+                    </div>
+                    <button class="order-btn" onclick="goToProduct('raye-vert')">
+                        Voir les tailles
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panier Pompons Rose -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/pompons-rose.jpg" alt="Panier Pompons Rose" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #FF69B4 0%, #FF1493 100%)';">
+                    <span class="size-badge">Décoratif</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Panier Pompons Rose</h3>
+                    <p class="product-description">
+                        Adorable panier décoré de pompons roses pour décoration.
+                    </p>
+                    <div class="price-range">
+                        À partir de <span class="price">100 DH</span>
+                    </div>
+                    <button class="order-btn" onclick="goToProduct('pompons-rose')">
+                        Voir les tailles
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <h2 class="contact-title">Contactez-nous</h2>
+        <div class="contact-info">
+            <p>Pour toute question ou information</p>
+            <p>📞 Téléphone : +212 XXX-XXXXXX</p>
+            <p>📧 Email : contact@goldenhands.ma</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Golden Hands - Paniers Berbères Artisanaux. Tous droits réservés.</p>
+        <p>Artisanat marocain authentique • Fait main avec amour ❤️</p>
+    </footer>
+
+    <script>
+        function goToProduct(productId) {
+            window.location.href = `produit.html?id=${productId}`;
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

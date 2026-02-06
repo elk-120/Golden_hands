@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choisir la taille - Golden Hands</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Styles spécifiques au panier */
+        .cart-header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-bottom-left-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cart-header:hover {
+            background: var(--sand);
+        }
+
+        .cart-icon {
+            font-size: 2rem;
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--terracotta);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .product-container {
+            max-width: 1000px;
+            margin: 120px auto 50px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .product-image-large {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            object-fit: cover;
+        }
+
+        .size-selection {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .size-option {
+            border: 2px solid #eee;
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .size-option:hover {
+            border-color: var(--terracotta);
+            background: #fff9f5;
+        }
+
+        .size-option.selected {
+            border-color: var(--terracotta);
+            background: #fff3eb;
+        }
+
+        .btn-add-cart {
+            background: var(--terracotta);
+            color: white;
+            border: none;
+            padding: 1.2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        .btn-add-cart:hover {
+            background: var(--deep-bronze);
+            transform: translateY(-2px);
+        }
+
+        /* Modal Panier */
+        #cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+        }
+
+        .cart-content {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            margin: 50px auto;
+            border-radius: 20px;
+            padding: 30px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 1.2rem;
+            border-radius: 12px;
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .product-container { grid-template-columns: 1fr; margin-top: 80px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cart-header" onclick="toggleCart()">
+        <div class="cart-icon">
+            🛒
+            <span class="cart-count" id="cart-count">0</span>
+        </div>
+    </div>
+
+    <div class="product-container">
+        <div class="product-gallery">
+            <img id="product-img" src="" alt="Panier" class="product-image-large">
+        </div>
+
+        <div class="product-details">
+            <a href="index.html" style="text-decoration: none; color: var(--terracotta); font-weight: 600;">← Retour aux modèles</a>
+            <h1 id="product-name" style="margin: 20px 0; font-family: 'Cormorant Garamond'; font-size: 2.5rem;">Chargement...</h1>
+            <p id="product-desc" style="color: #666; margin-bottom: 30px;"></p>
+
+            <h3>Choisissez le diamètre :</h3>
+            <div class="size-selection" id="size-options">
+                </div>
+
+            <button class="btn-add-cart" onclick="addToCart()">Ajouter au panier</button>
+        </div>
+    </div>
+
+    <div id="cart-modal" onclick="if(event.target == this) toggleCart()">
+        <div class="cart-content">
+            <h2 style="font-family: 'Cormorant Garamond'; margin-bottom: 20px;">Votre Panier</h2>
+            <div id="cart-items">
+                </div>
+            <div style="margin-top: 20px; text-align: right; font-weight: bold; font-size: 1.2rem;">
+                Total: <span id="cart-total">0</span> DH
+            </div>
+            <button class="btn-whatsapp" onclick="checkoutWhatsApp()">
+                Commander via WhatsApp 📱
+            </button>
+            <button onclick="toggleCart()" style="width: 100%; border: none; background: none; margin-top: 15px; cursor: pointer; color: #666;">
+                Continuer mes achats
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // 1. TON NUMÉRO WHATSAPP (Format: 212600000000 sans le +)
+        const WHATSAPP_NUMBER = '212771023456'; 
+
+        const products = {
+            'classique-naturel': { name: 'Panier Classique Naturel', desc: 'L\'authenticité du doum naturel.', img: 'images/classique-naturel.jpg' },
+            'raye-bleu': { name: 'Panier Rayé Bleu', desc: 'Élégance avec des touches de bleu méditerranéen.', img: 'images/raye-bleu.jpg' },
+            'raye-rouge': { name: 'Panier Rayé Rouge', desc: 'Des couleurs chaudes et vibrantes.', img: 'images/raye-rouge.jpg' },
+            'multicolore': { name: 'Panier Multicolore', desc: 'Un festival de couleurs artisanales.', img: 'images/multicolore.jpg' },
+            'geometrique-noir': { name: 'Panier Géométrique Noir', desc: 'Style moderne et traditionnel.', img: 'images/geometrique-noir.jpg' },
+            'berbere-traditionnel': { name: 'Panier Berbère Traditionnel', desc: 'Le savoir-faire ancestral.', img: 'images/berbere-traditionnel.jpg' },
+            'raye-vert': { name: 'Panier Rayé Vert', desc: 'Fraîcheur et nature.', img: 'images/raye-vert.jpg' },
+            'pompons-rose': { name: 'Panier Pompons Rose', desc: 'Douceur et décoration.', img: 'images/pompons-rose.jpg' }
+        };
+
+        const sizes = [
+            { diameter: 15, price: 100 },
+            { diameter: 20, price: 120 },
+            { diameter: 25, price: 150 },
+            { diameter: 30, price: 200 },
+            { diameter: 35, price: 250 },
+            { diameter: 40, price: 300 },
+            { diameter: 45, price: 450 },
+            { diameter: 50, price: 650 }
+        ];
+
+        let cart = [];
+        let selectedSize = null;
+        let currentProductId = '';
+
+        // Initialisation
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            currentProductId = urlParams.get('id') || 'classique-naturel';
+            
+            const product = products[currentProductId];
+            document.getElementById('product-name').textContent = product.name;
+            document.getElementById('product-desc').textContent = product.desc;
+            document.getElementById('product-img').src = product.img;
+
+            const sizeOptions = document.getElementById('size-options');
+            sizes.forEach(size => {
+                const div = document.createElement('div');
+                div.className = 'size-option';
+                div.onclick = () => selectSize(size, div);
+                div.innerHTML = `
+                    <span>Diamètre <strong>${size.diameter} cm</strong></span>
+                    <strong>${size.price} DH</strong>
+                `;
+                sizeOptions.appendChild(div);
+            });
+
+            // Charger le panier sauvegardé
+            const savedCart = localStorage.getItem('goldenHandsCart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCartDisplay();
+            }
+        };
+
+        function selectSize(size, element) {
+            selectedSize = size;
+            document.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function addToCart() {
+            if (!selectedSize) {
+                alert("Veuillez choisir une taille avant d'ajouter au panier.");
+                return;
+            }
+
+            const item = {
+                id: currentProductId,
+                name: products[currentProductId].name,
+                diameter: selectedSize.diameter,
+                price: selectedSize.price
+            };
+
+            cart.push(item);
+            updateCartDisplay();
+            localStorage.setItem('goldenHandsCart', JSON.stringify(cart));
+            showNotification("Article ajouté au panier !");
+        }
+
+        function updateCartDisplay() {
+            document.getElementById('cart-count').textContent = cart.length;
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+            
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                const div = document.createElement('div');
+                div.className = 'cart-item';
+                div.innerHTML = `
+                    <div>
+                        <strong>${item.name}</strong><br>
+                        <small>Diamètre: ${item.diameter}cm</small>
+                    </div>
+                    <div>
+                        ${item.price} DH 
+                        <span onclick="removeItem(${index})" style="color:red; cursor:pointer; margin-left:10px;">✕</span>
+                    </div>
+                `;
+                cartItems.appendChild(div);
+            });
+            document.getElementById('cart-total').textContent = total;
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCartDisplay();
+            localStorage.setItem('goldenHandsCart', JSON.stringify(cart));
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // ==========================================
+        // LA FONCTION DE COMMANDE WHATSAPP MODIFIÉE
+        // ==========================================
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                alert("Votre panier est vide !");
+                return;
+            }
+
+            let message = "Bonjour Golden Hands ! 👋\n\n";
+            message += "Je souhaite commander les articles suivants :\n";
+            message += "--------------------------------------\n";
+
+            cart.forEach((item) => {
+                message += `🧺 *${item.name}*\n`;
+                message += `📏 Diamètre : ${item.diameter} cm\n`;
+                message += `💰 Prix : ${item.price} DH\n`;
+                message += "--------------------------------------\n";
+            });
+
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            message += `\n💵 *TOTAL À PAYER : ${total} DH*`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function showNotification(msg) {
+            const note = document.createElement('div');
+            note.textContent = msg;
+            note.style.cssText = `position:fixed; top:20px; right:20px; background:#25D366; color:white; padding:15px 25px; border-radius:10px; z-index:3000; box-shadow:0 4px 15px rgba(0,0,0,0.2);`;
+            document.body.appendChild(note);
+            setTimeout(() => note.remove(), 3000);
+        }
+    </script>
+</body>
+</html>
